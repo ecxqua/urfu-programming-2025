@@ -33,3 +33,19 @@ class Book:
 
 book1 = Book('Название книги', 'Автор А. А.', '10-12-2025')
 print(book1.info())
+
+
+class Ebook(Book):
+    def __init__(self, title: str, author: str, year: str, format):
+        self.title = title
+        self.author = author
+        self.year = year
+        self.format = format
+
+    def info(self):
+
+        return f"{self.title} {self.author} {self.year} {self.format}"
+
+
+book2 = Ebook('Название книги', 'Автор А. А.', '10-12-2025', 'Электронная')
+print(book2.info())
