@@ -1,7 +1,14 @@
 from datetime import datetime
+from abc import ABC, abstractmethod
 
 
-class Book:
+class Printable(ABC):
+    @abstractmethod
+    def print_info(self):
+        pass
+
+
+class Book(Printable):
     """
     Класс, представляющий книгу.
 
@@ -39,6 +46,9 @@ class Book:
         """
         return f"{self.title} {self.author} {self.year}"
 
+    def print_info(self):
+        return self.info()
+
     @property
     def age(self):
         return datetime.now().year - self.year
@@ -54,8 +64,9 @@ class Book:
 
 
 book1 = Book('Название книги', 'Автор А. А.', 2019)
-print(book1.info())
-print(book1)
+print('book1.print_info()', book1.print_info())
+print('book1.info()', book1.info())
+print('book1', book1)
 book3 = Book('Море', 'Василий', 2021)
 print('book1 == book3:', book1 == book3)
 print(str(book3))
@@ -65,18 +76,19 @@ book1.age = 25
 print('Возраст книги 1:', book1.age, 'лет')
 
 book4 = Book.from_string('Лето;Анна;1984')
-print(str(book4))
-
-# class Ebook(Book):
-#     def __init__(self, title: str, author: str, year: int, format: str):
-#         self.title = title
-#         self.author = author
-#         self.year = year
-#         self.format = format
-
-#     def info(self):
-#         return f"{self.title} {self.author} {self.year} {self.format}"
+print('str(book4)', str(book4))
 
 
-# book2 = Ebook('Название книги', 'Автор А. А.', 2025, 'Электронная')
-# print(book2.info())
+class Ebook(Book):
+    def __init__(self, title: str, author: str, year: int, format: str):
+        self.title = title
+        self.author = author
+        self.year = year
+        self.format = format
+
+    def info(self):
+        return f"{self.title} {self.author} {self.year} {self.format}"
+
+
+book2 = Ebook('Название книги', 'Автор А. А.', 2025, 'Электронная')
+print(book2.info())
