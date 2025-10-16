@@ -36,7 +36,7 @@ print(book1.info())
 
 
 class Ebook(Book):
-    def __init__(self, title: str, author: str, year: str, format):
+    def __init__(self, title: str, author: str, year: str, format: str):
         self.title = title
         self.author = author
         self.year = year
