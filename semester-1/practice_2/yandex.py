@@ -1,41 +1,67 @@
-class CipherMaster:
-    alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
-
-    def cipher(self, original_text, shift):
-        # Метод должен возвращать зашифрованный текст
-        # с учетом переданного смещения shift.
-        new_text = ''
-        for alpha in original_text.lower():
-            if alpha in self.alphabet:
-                new_index = (self.alphabet.index(alpha) +
-                             shift) % len(self.alphabet)
-                new_text += self.alphabet[new_index]
-            else:
-                new_text += alpha
-        return new_text.capitalize()
-
-    def decipher(self, cipher_text, shift):
-        # Метод должен возвращать исходный текст
-        # с учётом переданного смещения shift.
-        new_text = ''
-        for alpha in cipher_text.lower():
-            if alpha in self.alphabet:
-                new_index = (self.alphabet.index(alpha) -
-                             shift) % len(self.alphabet)
-                new_text += self.alphabet[new_index]
-            else:
-                new_text += alpha
-        return new_text.capitalize()
+# Импортируйте нужную библиотеку.
+import datetime
 
 
-cipher_master = CipherMaster()
-print(cipher_master.cipher(
-    original_text='Однажды ревьюер принял проект с первого раза, с тех пор я его боюсь',
-    shift=3
-))
+class Store:
+    def __init__(self, address):
+        self.address = address
 
-cipher_master = CipherMaster()
-print(cipher_master.decipher(
-    cipher_text='сжргйжю узеябзу тулрво тусзнх ф тзуесёс угкг, ф хзш тсу в зёс дсбфя',
-    shift=3
-))
+    def is_open(self, date):
+        # Метод is_open() в родительском классе всегда возвращает False,
+        # это "код-заглушка", метод, предназначенный для переопределения
+        # в дочерних классах.
+        return False
+
+    def get_info(self, date_str):
+        # С помощью шаблона даты преобразуйте строку date_str в объект даты:
+        date_object = datetime.datetime.strptime(date_str, '%d.%m.%Y')
+
+        # Передайте в метод is_open() объект даты date_object и определите,
+        # работает ли магазин в указанную дату.
+        # В зависимости от результата будет выбрано значение
+        # для переменной info.
+        if self.is_open(date_object):
+            info = 'работает'
+        else:
+            info = 'не работает'
+        return f'Магазин по адресу {self.address} {date_str} {info}'
+
+
+class MiniStore(Store):
+    # Переопределите метод is_open().
+    def is_open(self, date):
+        if date.weekday() in range(0, 5):
+            return True
+        else:
+            return False
+
+
+class WeekendStore(Store):
+    # Переопределите метод is_open().
+    def is_open(self, date):
+        if date.weekday() in range(5, 7):
+            return True
+        else:
+            return False
+
+
+class NonStopStore(Store):
+    # Переопределите метод is_open().
+    def is_open(self, date):
+        if date.weekday() in range(0, 7):
+            return True
+        else:
+            return False
+
+
+mini_store = MiniStore('Улица Немига, 57')
+print(mini_store.get_info('29.03.2024'))
+print(mini_store.get_info('30.03.2024'))
+
+weekend_store = WeekendStore('Улица Толе би, 321')
+print(weekend_store.get_info('29.03.2024'))
+print(weekend_store.get_info('30.03.2024'))
+
+non_stop_store = NonStopStore('Улица Арбат, 60')
+print(non_stop_store.get_info('29.03.2024'))
+print(non_stop_store.get_info('30.03.2024'))
