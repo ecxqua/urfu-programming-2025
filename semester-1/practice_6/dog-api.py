@@ -1,0 +1,41 @@
+
+"""• Создайте программу, которая будет
+взаимодействовать с Dog API, которая позволит
+получать список пород собак, вводить несколько
+пород и получать их фотогрфии
+.
+Этапы: • Создайте функцию, которая использует метод GET и
+возвращает список всех пород собак в формате
+нумерованного списка
+• Реализуйте возможность ввода нескольких пород
+собак через запятую: african, chow, dingo
+• Создание функции, которая реализует запрос,
+возвращает и выводит изображениия собак, породы
+которых были введены до этого
+Используйте Dog API (https://dog.ceo/dog
+-api/), который
+предоставляет информацию о породах собак и их
+изображения.
+Реализуйте с помощью шаблонов Django."""
+
+import requests
+
+breeds = input("Введите породы через пробел: ").lower().split()
+print(breeds)
+
+
+def get_doggies(breeds):
+    count = 0
+    for breed in breeds:
+        url = f'https://dog.ceo/api/breed/{breed}/images/random'
+        response = requests.get(url)
+        if response.status_code == 200:
+            count += 1
+            data = response.json()
+            print(f'{count}. Порода: {breed}')
+            print(data['message'])
+        else:
+            print(f"Ошибка при запросе для породы: {breed}")
+
+
+get_doggies(breeds)

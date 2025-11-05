@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dog breeds</title>
+</head>
+
+<body>
+    <h1>Введите породы собак через запятую</h1>
+    <form method="get">
+        <input type="text" name="breeds" placeholder="african, chow, dingo">
+        <button type="submit">Показать фото</button>
+    </form>
+
+    {% if images %}
+    <h2>Фотографии выбранных пород:</h2>
+    <ol>
+        {% for item in images %}
+        <li>
+            {{ item.breed|capfirst }} <!-- название породы с заглавной буквы -->
+            <br>
+            <img src="{{ item.url }}" alt="{{ item.breed }}" width="300">
+        </li>
+        {% endfor %}
+    </ol>
+    {% endif %}
+</body>
+
+</html>
