@@ -25,6 +25,8 @@ print(breeds)
 
 
 def get_doggies(breeds):
+    """Функция для получения и вывода изображений собак по списку пород."""
+
     count = 0
     for breed in breeds:
         url = f'https://dog.ceo/api/breed/{breed}/images/random'
