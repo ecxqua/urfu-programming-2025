@@ -4,7 +4,6 @@ import json
 
 def first_20_pokemons():
     """Выводит имена первых 20 покемонов из PokeAPI."""
-    # Задание 1
     params = {'limit': 20}
     response = requests.get('https://pokeapi.co/api/v2/pokemon', params=params)
 
@@ -17,8 +16,6 @@ def first_20_pokemons():
 
 
 first_20_pokemons()
-
-# Задание 2
 
 
 def full_pokemon_info():
@@ -39,9 +36,6 @@ def full_pokemon_info():
 
 
 full_pokemon_info()
-
-
-# Задание 3
 
 
 def pokemon_info():
