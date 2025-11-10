@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8 with BOM">
+    <title>{{ book.title }}</title>
+</head>
+
+<body>
+    <h1>Информация о книге</h1>
+
+    <div>
+        <h2>{{ book.title }}</h2>
+        <p><strong>Автор:</strong> {{ book.author }}</p>
+        <p><strong>Год издания:</strong> {{ book.year }}</p>
+        <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+        <p><strong>Описание:</strong> {{ book.description }}</p>
+        <p><strong>Доступно копий:</strong> {{ book.copies_available }}</p>
+    </div>
+
+    <a href="{% url 'catalog:book_list' %}">Назад к списку</a>
+</body>
+
+</html>
