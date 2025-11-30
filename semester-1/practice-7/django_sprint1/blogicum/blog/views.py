@@ -1,6 +1,20 @@
 # blog/views.py
+"""
+Представления (views) для блога.
+
+Содержит основные страницы:
+- Главная страница со списком постов
+- Страница детального просмотра поста
+- Страница постов по категории
+
+⚠️ Примечание: данные постов временно хранятся в памяти (список `posts`).
+В реальном проекте они должны загружаться из базы данных через модели Django.
+"""
+
 from django.shortcuts import render
 
+
+# Временные данные для демонстрации (заменяются моделью Post в реальном проекте)
 posts = [
     {
         'id': 0,
@@ -46,18 +60,47 @@ posts = [
 
 
 def index(request):
+    """Отображает главную страницу блога со списком всех постов в обратном хронологическом порядке."""
     template = 'blog/index.html'
+    # Посты отображаются в обратном порядке (новые — сверху)
     context = {'posts': posts[::-1]}
     return render(request, template, context)
 
 
 def post_detail(request, id):
+    """Отображает детальную страницу конкретного поста по его ID.
+
+    Args:
+        request (HttpRequest): Объект HTTP-запроса.
+        id (int): Уникальный идентификатор поста.
+
+    Returns:
+        HttpResponse: HTML-страница с деталями поста.
+
+    Note:
+        В реальном проекте следует использовать get_object_or_404
+        для обработки случая, когда пост с таким ID не найден.
+    """
     template = 'blog/detail.html'
     context = {'post': posts[id]}
     return render(request, template, context)
 
 
 def category_posts(request, category_slug):
+    """Отображает все посты, относящиеся к указанной категории.
+
+    Args:
+        request (HttpRequest): Объект HTTP-запроса.
+        category_slug (str): Слаг категории (например, 'travel').
+
+    Returns:
+        HttpResponse: HTML-страница с постами выбранной категории.
+
+    Note:
+        В текущей реализации фильтрация по категории не выполняется —
+        отображается только название категории. В реальном проекте
+        необходимо фильтровать список `posts` или использовать ORM.
+    """
     template = 'blog/category.html'
     context = {'category': category_slug}
     return render(request, template, context)
